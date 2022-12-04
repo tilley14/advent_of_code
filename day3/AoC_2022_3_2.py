@@ -1,11 +1,11 @@
 # Advent of Code 2022, Day 3, Puzzle 2
 
 # Priority Map Building Shortcuts
-asciAlphStart = ord('a')
-asciAlphEnd = ord('z')
+asciAlphStart = ord("a")
+asciAlphEnd = ord("z")
 
-asciAlphUpStart = ord('A')
-asciAlphUpEnd = ord('Z')
+asciAlphUpStart = ord("A")
+asciAlphUpEnd = ord("Z")
 
 # Build Priority Map
 priority = {}
@@ -26,8 +26,8 @@ with open("ruck.txt") as f:
 
 # Find Badge and add its priority to the total
 for i in range(0, len(elves), 3):
-    group = [set([item for item in elf]) for elf in elves[i:i+3]]
-    badge = list(set.intersection(*group))[0] # Assuming 1 Badge per group
+    group = [set([item for item in elf]) for elf in elves[i : i + 3]]
+    badge = list(set.intersection(*group))[0]  # Assuming 1 Badge per group
     total = total + priority[badge]
 
 print(total)

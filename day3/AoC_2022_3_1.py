@@ -1,10 +1,10 @@
 # Advent of Code 2022, Day 3, Puzzle 1
 
-asciAlphStart = ord('a')
-asciAlphEnd = ord('z')
+asciAlphStart = ord("a")
+asciAlphEnd = ord("z")
 
-asciAlphUpStart = ord('A')
-asciAlphUpEnd = ord('Z')
+asciAlphUpStart = ord("A")
+asciAlphUpEnd = ord("Z")
 
 # Build Priority Map
 priority = {}
@@ -31,6 +31,6 @@ with open("ruck.txt") as f:
 
             duplicateItems = pocket1.intersection(pocket2)
             total = total + sum([priority[i] for i in duplicateItems])
-            
+
 
 print(total)

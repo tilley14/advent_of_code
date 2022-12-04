@@ -16,7 +16,9 @@ with open("assignments.txt") as f:
             for bound in assignmentBounds
         ]
 
-        if assignmentSets[0].issubset(assignmentSets[1]) or assignmentSets[1].issubset(assignmentSets[0]):
+        if assignmentSets[0].issubset(assignmentSets[1]) or assignmentSets[1].issubset(
+            assignmentSets[0]
+        ):
             redundantAssignments += 1
 
 print(redundantAssignments)
