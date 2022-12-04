@@ -1,4 +1,4 @@
-# Advent of Code 2022, Day 3, Part 2
+# Advent of Code 2022, Day 3, Puzzle 2
 
 # Priority Map Building Shortcuts
 asciAlphStart = ord('a')

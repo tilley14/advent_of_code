@@ -1,5 +1,4 @@
-# Advent of Code, Day 2, Problem 1
-
+# Advent of Code 2022, Day 2, Puzzle 1
 
 ROCK = "A"
 PAPER = "B"

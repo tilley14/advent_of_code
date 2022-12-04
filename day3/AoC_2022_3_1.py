@@ -1,4 +1,5 @@
-# Advent of Code 2022, Day 3, Part 1 
+# Advent of Code 2022, Day 3, Puzzle 1
+
 asciAlphStart = ord('a')
 asciAlphEnd = ord('z')
 
