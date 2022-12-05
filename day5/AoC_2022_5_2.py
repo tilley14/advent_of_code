@@ -1,7 +1,25 @@
-# Advent of Code 2022, Day 5, Puzzle 2
+# Advent of Code 2022, Day 5, Puzzle 1
+
+STACKS = [[c for c in "dtwnl"[::-1]], 
+          [c for c in "hpc"[::-1]],
+          [c for c in "jmgdnhpw"[::-1]],
+          [c for c in "lqtnswc"[::-1]], 
+          [c for c in "nchp"[::-1]],
+          [c for c in "bqwmdnht"[::-1]],
+          [c for c in "lsgjrbm"[::-1]], 
+          [c for c in "trbvgwnz"[::-1]],
+          [c for c in "lpndgw"[::-1]]]
+
+def move(count, src, dest):
+    m = []
+    for i in range(count):
+        m += (STACKS[src - 1].pop())
+    STACKS[dest - 1] += m[::-1]
 
 with open("input.txt") as f:
-    for line in f.readlines():
-        pass
+    for line in f.readlines()[10:]:
+        line = line.replace("move ", "").replace("from ", "").replace("to ", "")
+        c, s, d = map(int, line.split(" "))
+        move(c, s, d)
 
-print()
+print("".join([i[-1].capitalize() for i in STACKS]))
