@@ -1,7 +1,14 @@
 # Advent of Code 2022, Day 6, Puzzle 1
 
-with open("input.txt") as f:
-    for line in f.readlines():
-        pass
+endOfPacket = 0
 
-print()
+with open("input.txt") as f:
+    line = f.readline()
+    for x in range(len(line) - 4):
+        print(set(line[x:x+4]))
+        if len(set(line[x:x+4])) == 4:
+            endOfPacket =  x+4
+            break
+        
+
+print(endOfPacket)
