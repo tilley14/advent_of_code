@@ -1,74 +1,87 @@
 # Advent of Code 2022, Day 7, Puzzle 1
 
-ret = 0
-
 
 class Node:
-    def __init__(self, name) -> None:
+    def __init__(self, name: str) -> None:
         self.parent = None
         self.name = name
         self.children = {}
-        
-    def isLeaf(self):
+
+    def isLeaf(self) -> bool:
         return len(self.children) == 0
-        
+
     def getSize(self) -> int:
         return 0
-    
-    def isRoot(self)-> bool:
+
+    def isRoot(self) -> bool:
         return self.parent is None
-    
+
     def getPath(self):
         if self.parent == None:
             return self.name
-        return self.parent.getPath() + "/" + self.name
-    
+        elif self.parent.isRoot():
+            return self.parent.getPath() + self.name
+        else:
+            return self.parent.getPath() + "/" + self.name
+
     def addChild(self, child):
         if child.name not in self.children.keys():
             child.parent = self
             self.children[child.name] = child
-    
+
+    def equals(self, other) -> bool:
+        return self.getPath == other.getPath()
+
+    def isDir(self) -> bool:
+        return False
+
+
 class aFile(Node):
-    def __init__(self, fname, fsize) -> None:
+    def __init__(self, fname: str, fsize: int) -> None:
         super().__init__(fname)
         self.size = fsize
-        
+
     def getSize(self) -> int:
         return self.size
 
+    def isDir(self) -> bool:
+        return False
+
 
 class aDir(Node):
-    def __init__(self, fname) -> None:
+    def __init__(self, fname: str) -> None:
         super().__init__(fname)
-        
-    def getSize(self) ->int:
+
+    def getSize(self) -> int:
         totalSize = 0
-        for k, v in self.children.items():
-            totalSize += v.getSize()
+        for _, child in self.children.items():
+            totalSize += child.getSize()
         return totalSize
-    
+
+    def isDir(self) -> bool:
+        return True
+
 
 ROOT_DIR = aDir("/")
 CURRENT_DIR = ROOT_DIR
 
-def cd(path : str):
+
+def cd(path: str):
     global CURRENT_DIR
-    
+    global ROOT_DIR
     if path == "/":
         CURRENT_DIR = ROOT_DIR
     elif path == "..":
-        CURRENT_DIR = CURRENT_DIR.parent
-    else:
-        if path in CURRENT_DIR.children.keys():
-            CURRENT_DIR = CURRENT_DIR.children[path]
+        if not CURRENT_DIR.equals(ROOT_DIR):
+            CURRENT_DIR = CURRENT_DIR.parent
         else:
+            CURRENT_DIR = ROOT_DIR
+    else:
+        if path not in CURRENT_DIR.children:
             CURRENT_DIR.addChild(aDir(path))
-            CURRENT_DIR = CURRENT_DIR.children[path]
-            
 
+        CURRENT_DIR = CURRENT_DIR.children[path]
 
-MAX_SIZE=10000
-totalSizesLessThan10000 = 0
 
 with open("input.txt") as f:
     for line in f.readlines():
@@ -81,25 +94,24 @@ with open("input.txt") as f:
         elif line.startswith("dir"):
             _, path = line.split(" ")
             CURRENT_DIR.addChild(aDir(path))
-        else:
+        else:  # a file
             size, path = line.split(" ")
             CURRENT_DIR.addChild(aFile(path, int(size)))
-                
 
-ALL_SIZES = {}
+MAX_SIZE = 100000
+DIR_SIZES = {}
+
 
 def depthFirstSize(node: Node):
-    global ALL_SIZES
+    global DIR_SIZES
     if not node.isLeaf():
-        for _, n in node.children.items():
-            depthFirstSize(n)
-            
-    ALL_SIZES[node.getPath()] = node.getSize()
+        for _, child in node.children.items():
+            depthFirstSize(child)
+
+    if node.isDir():
+        DIR_SIZES[node.getPath()] = node.getSize()
 
 
 depthFirstSize(ROOT_DIR)
 
-
-
-for path, sz in ALL_SIZES.items():
-    print('{} {}'.format(path, size))
+print(sum([v for _, v in DIR_SIZES.items() if v <= MAX_SIZE]))
