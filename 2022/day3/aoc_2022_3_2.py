@@ -21,7 +21,7 @@ for i in range(asciAlphUpStart, asciAlphUpEnd + 1):
 # Read Elf Ruck Manifest
 total = 0
 elves = []
-with open("ruck.txt") as f:
+with open("input.txt") as f:
     elves = [l.strip() for l in f.readlines() if l.strip()]
 
 # Find Badge and add its priority to the total
