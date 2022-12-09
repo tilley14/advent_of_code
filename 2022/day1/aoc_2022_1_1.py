@@ -2,7 +2,7 @@
 
 cals = []  # To Do Quick Sanity Check
 maxCal = 0
-with open("cal.txt") as f:
+with open("input.txt") as f:
     sum = 0
     for line in f.readlines():
         line = line.strip()
