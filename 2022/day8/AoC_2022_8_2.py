@@ -1,5 +1,10 @@
 # Advent of Code 2022, Day 8, Puzzle 2
 
+txt = ""
+with open("input.txt") as f:
+    txt = f.read()
+print([list(map(int, line)) for line in txt.splitlines()])
+
 ret = 0
 
 grid = []
