@@ -18,7 +18,7 @@ for i in range(asciAlphUpStart, asciAlphUpEnd + 1):
     p = p + 1
 
 total = 0
-with open("ruck.txt") as f:
+with open("input.txt") as f:
     for line in f.readlines():
         line = line.strip()
         if line:
