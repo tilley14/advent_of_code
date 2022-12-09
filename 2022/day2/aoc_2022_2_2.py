@@ -46,7 +46,7 @@ def evalMatch(matchLine: str):
 
 
 cheaterTotalPoints = 0
-with open("rps.txt") as f:
+with open("input.txt") as f:
     cheaterTotalPoints = sum([evalMatch(m) for m in f.readlines()])
 
 print("The Rock Paper Scissor Cheater Scored {} points".format(cheaterTotalPoints))
