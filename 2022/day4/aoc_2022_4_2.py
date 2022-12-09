@@ -1,7 +1,7 @@
 # Advent of Code 2022, Day 4, Puzzle 2
 
 redundantAssignments = 0
-with open("assignments.txt") as f:
+with open("input.txt") as f:
     for line in f.readlines():
         line = line.strip()
         assignments = line.split(",")
