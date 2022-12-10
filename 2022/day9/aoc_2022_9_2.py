@@ -160,3 +160,21 @@ for line in INPUT:
 draw(True)
 
 print("Now count the Xs if you want your answer bud...")
+
+
+# minx = min([x for x, _ in UNIQUE_POINTS])
+# maxx = max([x for x, _ in UNIQUE_POINTS])
+# miny = min([y for _, y in UNIQUE_POINTS])
+# maxy = max([y for _, y in UNIQUE_POINTS])
+
+# lx = maxx - minx + 1
+# ly = maxy - miny + 1
+
+# dx = 0 - minx
+# dy = 0 - miny
+
+# g = [["." for i in range(lx)] for i in range(ly)]
+# for x, y in UNIQUE_POINTS:
+#     g[dy + y][dx + x] = "x"
+
+# print("\n".join("".join(r) for r in g))
