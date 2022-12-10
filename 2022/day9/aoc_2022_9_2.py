@@ -9,18 +9,26 @@ ret = 0
 
 INPUT = []
 
-FN = "test.txt"
+FN = "input.txt"
 with open(FN) as f:
     INPUT = [l.strip() for l in f.readlines() if l.strip()]
 
 
-uniquePositions = set([(0, 0)])
+UNIQUE_POINTS = set([(0, 0)])
 
+
+GX = GY = 31
+MX = MY = GX // 2
 
 KNOTS = []
 for i in range(0, 10):
     KNOTS.append([0, 0])
 
+
+# rope head is the center
+MOVING_CENTER = True
+CENTER = [MX, MY]
+MARGIN = 2
 
 HEAD = 0
 TAIL = 9
@@ -32,20 +40,19 @@ def distance(x1: float, x2: float, y1: float, y2: float):
     return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
 
+def doRender(x, y):
+    return (0 <= x < GX) and (0 <= y < GY)
+
+
 def draw(onlyXs):
     # if "test" not in FN:
     #     return
 
-    # gX = gY = 31
-    # mX = mY = 31 // 2
+    g = [["." for i in range(GX)] for i in range(GY)]
 
-    gX = gY = 81
-    mX = mY = 81 // 2
-
-    g = [["." for i in range(gX)] for i in range(gY)]
-
-    for x, y in uniquePositions:
-        g[mY - y][mX + x] = "x"
+    for x, y in UNIQUE_POINTS:
+        if doRender(CENTER[X] + x, CENTER[Y] - y):
+            g[CENTER[Y] - y][CENTER[X] + x] = "x"
 
     if not onlyXs:
         for i in reversed(range(10)):
@@ -56,18 +63,19 @@ def draw(onlyXs):
             #     ch = "T"
             x, y = KNOTS[i]
 
-            # print("y{},x{}".format((mY - y), (mX + x)))
-            g[mY - y][mX + x] = ch
+            if doRender(CENTER[X] + x, CENTER[Y] - y):
+                g[CENTER[Y] - y][CENTER[X] + x] = ch
 
     os.system("cls")
     print("\n".join("".join(r) for r in g))
-    # print("\n")
-    sleep(.1)
+    print("\n")
+    sleep(.02)
 
 
 def move(direction, steps):
     global KNOTS
-    global uniquePositions
+    global UNIQUE_POINTS
+    global CENTER
     remainingSteps = steps
 
     # print(
@@ -88,6 +96,16 @@ def move(direction, steps):
             KNOTS[HEAD][X] -= 1
         if direction == "R":
             KNOTS[HEAD][X] += 1
+
+        if MOVING_CENTER:
+            if direction == "U" and CENTER[Y] - KNOTS[HEAD][Y] < MARGIN:
+                CENTER[Y] += 1
+            if direction == "D" and CENTER[Y] - KNOTS[HEAD][Y] >= GY - MARGIN:
+                CENTER[Y] -= 1
+            if direction == "L" and CENTER[X] + KNOTS[HEAD][X] < MARGIN:
+                CENTER[X] += 1
+            if direction == "R" and CENTER[X] + KNOTS[HEAD][X] >= GX - MARGIN:
+                CENTER[X] -= 1
 
         draw(False)
 
@@ -113,7 +131,7 @@ def move(direction, steps):
                     KNOTS[K2][X] += dx // 2
 
                 if K2 == TAIL:
-                    uniquePositions.add((KNOTS[K2][X], KNOTS[K2][Y]))
+                    UNIQUE_POINTS.add((KNOTS[K2][X], KNOTS[K2][Y]))
 
                 draw(False)
             else:
@@ -123,22 +141,19 @@ def move(direction, steps):
 def handleExit(signum, frame):
     print("Exit y/n?")
     answer = input()
-    if answer == 'y':
+    if answer.lower() == 'y':
         exit(1)
 
 
 signal.signal(signal.SIGINT, handleExit)
 
-
 draw(False)
-print("You might want to make your font smaller (Enter to continue...)\nAlso, 'ctl + C' should pause this but sometimes it doesn't")
-input()
 
 for line in INPUT:
     direction, step = line.split(" ")
     move(direction, int(step))
 
-# print(len(uniquePositions))
+# print(len(UNIQUE_POINTS))
 
 draw(True)
 
