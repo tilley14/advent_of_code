@@ -17,8 +17,10 @@ with open(FN) as f:
 UNIQUE_POINTS = set([(0, 0)])
 
 
-GX = GY = 31
-MX = MY = GX // 2
+GX = 80  # 31
+GY = 31
+MX = GX // 2
+MY = GY // 2
 
 KNOTS = []
 for i in range(0, 10):
