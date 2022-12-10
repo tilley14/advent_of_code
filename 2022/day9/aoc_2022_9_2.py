@@ -59,12 +59,10 @@ def draw(onlyXs):
             # print("y{},x{}".format((mY - y), (mX + x)))
             g[mY - y][mX + x] = ch
 
-
     os.system("cls")
     print("\n".join("".join(r) for r in g))
     # print("\n")
     sleep(.1)
-
 
 
 def move(direction, steps):
@@ -133,7 +131,7 @@ signal.signal(signal.SIGINT, handleExit)
 
 
 draw(False)
-print("You might want to make your font smaller (Enter to continue...)")
+print("You might want to make your font smaller (Enter to continue...)\nAlso, 'ctl + C' should pause this but sometimes it doesn't")
 input()
 
 for line in INPUT:
