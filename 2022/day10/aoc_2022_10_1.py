@@ -18,7 +18,7 @@ def incrementCycles():
 
 
 def addV(v):
-    global x
+    global X
     incrementCycles()
     incrementCycles()
     X += v

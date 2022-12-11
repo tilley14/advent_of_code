@@ -5,8 +5,6 @@ import os
 from time import sleep
 import signal
 
-ret = 0
-
 INPUT = []
 
 FN = "input.txt"
