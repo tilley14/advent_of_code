@@ -17,7 +17,6 @@ class Monkey():
         self.truthyTarget = None
         self.falsyTarget = None
         self.totalItemsInspected = 0
-        self.isMult = False
 
     def setItems(self, items: list):
         self.items = items
