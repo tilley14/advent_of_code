@@ -1,20 +1,45 @@
 import argparse
 
 
-def p1(fname: str):
+def p1(fname: str) -> int:
+    l1 = []
+    l2 = []
     with open(fname) as f:
         for line in f.readlines():
-            pass
+            elm1, elm2 = line.split()
+            l1.append(int(elm1))
+            l2.append(int(elm2))
 
-    print(fname)
+    l1.sort()
+    l2.sort()
+
+    dif = [abs(e1 - e2) for e1, e2 in zip(l1, l2)]
+
+    return sum(dif)
 
 
 def p2(fname: str):
+    l1 = []
+    appearances = dict()
     with open(fname) as f:
         for line in f.readlines():
-            pass
+            elm1, elm2 = line.split()
+            l1.append(int(elm1))
 
-    print(fname)
+            n = int(elm2)
+            if n in appearances:
+                appearances[n] += 1
+            else:
+                appearances[n] = 1
+
+    ret = 0
+
+    for e in l1:
+        if e in appearances:
+            ret += e * appearances[e]
+        # else its e*0 = 0
+
+    return ret
 
 
 if __name__ == "__main__":
@@ -23,10 +48,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.input == "p1":
-        p1("input.txt")
-    if args.input == "p2":
-        p1("input.txt")
-    if args.input == "t1":
-        p2("test1.txt")
-    if args.input == "t2":
-        p2("test2.txt")
+        print(p1("input.txt"))  # answer 1222801
+    elif args.input == "p2":
+        print(p2("input.txt"))  # answer 22545250
+    elif args.input == "t1":
+        print(p1("test1.txt") == 11)
+    elif args.input == "t2":
+        print(p2("test2.txt") == 31)

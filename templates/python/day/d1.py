@@ -19,10 +19,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.input == "p1":
-        p1("input.txt")
-    if args.input == "p2":
-        p1("input.txt")
-    if args.input == "t1":
-        p2("test1.txt")
-    if args.input == "t2":
-        p2("test2.txt")
+        print(p1("input.txt"))  # answer
+    elif args.input == "p2":
+        print(p2("input.txt"))  # answer
+    elif args.input == "t1":
+        print(p1("test1.txt") == -1)
+    elif args.input == "t2":
+        print(p2("test2.txt") == -1)
